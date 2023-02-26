@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Phone implements PhoneInterface {
@@ -6,17 +7,21 @@ public class Phone implements PhoneInterface {
     private String brand;
     private String name;
     private int password;
-    private Contact[] contacts;
+    private Contact[]cont;
 
-
-    public Phone(String brand, String name, int password, Contact[]contacts) {
-        this.brand = brand;
-        this.name = name;
-        this.password = password;
-        this.contacts=contacts;
+    public Contact[] getCont() {
+        return cont;
     }
 
-    public Phone(String samsung, String name, int password, int i) {
+    public void setCont(Contact[] cont) {
+        this.cont = cont;
+    }
+
+    public Phone(String br, String nm, int pass,Contact[]cont) {
+        this.brand = br;
+        this.name = nm;
+        this.password = pass;
+        this.cont = cont;
     }
 
     public String getBrand() {
@@ -41,15 +46,9 @@ public class Phone implements PhoneInterface {
 
     public void setPassword(int password) {
         this.password = password;
+
     }
 
-    public Contact[] getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Contact[] contacts) {
-        this.contacts = contacts;
-    }
 
     @Override
     public String toString() {
@@ -58,7 +57,7 @@ public class Phone implements PhoneInterface {
                 ", brand='" + brand + '\'' +
                 ", name='" + name + '\'' +
                 ", password=" + password +
-                ", contacts=" + Arrays.toString(contacts) +
+         ", contacts=" + Arrays.toString(cont) +
                 '}';
     }
 
@@ -71,30 +70,30 @@ public class Phone implements PhoneInterface {
             System.out.println("Телефон жанды");
         } else {
             System.out.println("Пароль туура эмес");
+
         }
+
     }
 
     @Override
     public void call() {
         System.out.println("Введите номер телефона");
-        int coll = sc.nextInt();
-        for (int i = 0; i < contacts.length; i++) {
-            if (coll == contacts[i].getPhoneNumber()) {
-                System.out.println(contacts[i].getFullName());
-            } else {
-                System.out.println("null");
-
+       int phoneNumber=sc.nextInt();
+        for (Contact contact:cont) {
+            if (phoneNumber==cont.length) {
+                System.out.println("Numbers "+contact.getFullName());
             }
         }
+
     }
 
     @Override
     public Contact call(String fullName) {
         System.out.println("Введите имя контакта");
         String name = sc.nextLine();
-        for (int i = 0; i < contacts.length; i++) {
-            if (name == contacts[i].getFullName()) {
-                System.out.println("Вы звоните " + contacts[i].getFullName() + " " + contacts[i].getPhoneNumber());
+        for (int i = 0; i < cont.length; i++) {
+            if (name == cont[i].getFullName()) {
+                System.out.println("Вы звоните " + cont[i].getFullName() + " " + cont[i].getPhoneNumber());
             } else
                 return null;
     }
@@ -103,6 +102,7 @@ public class Phone implements PhoneInterface {
 
     @Override
     public Contact getAllContact() {
+        System.out.println(Arrays.toString(cont));
         return null;
     }
 
